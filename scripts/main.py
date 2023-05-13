@@ -53,7 +53,7 @@ class MyBot(commands.Bot):
         
         self.plugin_loader = plugins.PluginLoader()
         
-        all_plugins_name = []
+        all_plugins_name = ["gamification"]
         for plugin in all_plugins_name:
             self.plugin_loader.add_plugin(plugins.Plugin.create(plugin))
             
@@ -61,9 +61,11 @@ class MyBot(commands.Bot):
         self.extention_loader.add_multiple_extentions(self.plugin_loader.plugins)
 
     async def setup_hook(self) -> None:
-        await self.tree.sync()
         
         await self.extention_loader.load_extensions(self)
+        
+        await self.tree.sync()
+        
 
     async def on_ready(self):
         print('-------------')
