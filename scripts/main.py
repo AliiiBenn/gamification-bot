@@ -7,6 +7,9 @@ import pkgutil, sys, traceback
 
 from core import plugins
 
+import logging
+logger = logging.getLogger('discord')
+
 
 def load_module(module_path : str, module_prefix : Optional[str] = None) -> list[str]:
     if module_prefix is None:
@@ -38,8 +41,7 @@ class BotExtentionsLoader:
             try:
                 await bot.load_extension(plugin)
             except Exception as e:
-                print(f'Failed to load extension {plugin}.', file=sys.stderr)
-                traceback.print_exc()
+                logger.error(f'Failed to load extension {plugin}.')
 
 
 
@@ -75,12 +77,20 @@ class MyBot(commands.Bot):
     
     
 
-bot = MyBot()
 
-
-
-
-if __name__ == '__main__':
+def main() -> None:
+    logger = logging.getLogger('discord')
+    logger.setLevel(logging.INFO) 
+    
+    date_format = "%d/%m/%Y %H:%M:%S"
+    handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+    handler.setFormatter(logging.Formatter('[{asctime}] [{levelname}] {name}: {message}', date_format, style='{'))
+    logger.addHandler(handler)
+    
+    
+    bot = MyBot()
+    
+    
     dotenv.load_dotenv()
     token = os.getenv('DISCORD_TOKEN')
 
@@ -88,3 +98,10 @@ if __name__ == '__main__':
         raise ValueError('Token not found')
 
     bot.run(token)
+    
+    
+
+
+
+if __name__ == '__main__':
+    main()

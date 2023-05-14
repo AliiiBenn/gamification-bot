@@ -1,0 +1,4 @@
+[14/05/2023 16:47:24] [INFO] discord.client: logging in using static token
+[14/05/2023 16:47:24] [ERROR] discord: Failed to load extension plugins.gamification.competences.
+[14/05/2023 16:47:24] [ERROR] discord: Failed to load extension plugins.gamification.database.
+[14/05/2023 16:48:04] [INFO] discord.gateway: Shard ID None has connected to Gateway (Session ID: eebffaa43db01d95bbe9fc02f409a41b).
